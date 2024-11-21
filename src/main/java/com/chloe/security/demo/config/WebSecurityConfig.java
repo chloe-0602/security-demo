@@ -49,6 +49,8 @@ public class WebSecurityConfig {
             exception.authenticationEntryPoint(new MyAuthenticationEntryPoint());
         });
 
+        http.cors(Customizer.withDefaults());
+
         http.csrf(csrf -> csrf.disable());
 
         return http.build();
