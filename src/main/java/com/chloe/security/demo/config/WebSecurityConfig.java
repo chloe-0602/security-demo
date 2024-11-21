@@ -21,7 +21,7 @@ import java.lang.invoke.VarHandle;
 @Configuration
 //@EnableWebSecurity
 public class WebSecurityConfig {
-    @Bean
+/*    @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(
@@ -31,5 +31,10 @@ public class WebSecurityConfig {
                         .build()
         );
         return manager;
-    }
+    }*/
+
+/*    @Bean
+    public UserDetailsService userDetailsService() {
+        return new DBUserDetailsManager();
+    }*/
 }
