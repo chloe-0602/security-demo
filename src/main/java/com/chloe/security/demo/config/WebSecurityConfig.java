@@ -45,6 +45,10 @@ public class WebSecurityConfig {
                         logout.logoutSuccessHandler(new MyLogoutSuccessHandler())
         );
 
+        http.exceptionHandling(exception ->{
+            exception.authenticationEntryPoint(new MyAuthenticationEntryPoint());
+        });
+
         http.csrf(csrf -> csrf.disable());
 
         return http.build();
