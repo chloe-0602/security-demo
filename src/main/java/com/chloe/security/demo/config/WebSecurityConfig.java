@@ -30,8 +30,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().authenticated()
                 )
-//                .formLogin(Customizer.withDefaults()); //默认的登录登出页
-                .httpBasic(Customizer.withDefaults());// 使用基本的授权方式，一般不用！
+                .formLogin(Customizer.withDefaults()); //默认的登录登出页
+//                .httpBasic(Customizer.withDefaults());// 使用基本的授权方式，一般不用！
+        http.csrf(csrf -> csrf.disable());
         return http.build();
     }
 /*    @Bean
