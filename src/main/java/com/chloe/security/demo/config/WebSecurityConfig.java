@@ -26,13 +26,16 @@ import java.lang.invoke.VarHandle;
 public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().authenticated()
-                )
-                .formLogin(Customizer.withDefaults()); //默认的登录登出页
+        http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+                .formLogin(form -> {
+                    form.loginPage("/login").permitAll()
+                            .usernameParameter("myusername")
+                            .passwordParameter("mypassword")
+                            .failureUrl("/login?failure"); //注意是 failureurl 不是其他的
+                })
+            .formLogin(Customizer.withDefaults()); //默认的登录登出页
 //                .httpBasic(Customizer.withDefaults());// 使用基本的授权方式，一般不用！
-        http.csrf(csrf -> csrf.disable());
+//        http.csrf(csrf -> csrf.disable());
         return http.build();
     }
 /*    @Bean
