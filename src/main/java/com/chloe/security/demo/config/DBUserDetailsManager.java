@@ -82,7 +82,8 @@ public class DBUserDetailsManager implements UserDetailsManager, UserDetailsPass
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
-                .roles("ADMIN")
+                .roles("ADMIN") //注意！ role / authorities 存在 【后面】的会将【前面】的覆盖，情况，如果需要加上多个role可以在（）加上多个参数
+//                .authorities("USER_ADD", "USER_LIST")
                 .disabled(!user.getEnabled())
                 .accountExpired(false)
                 .build();
