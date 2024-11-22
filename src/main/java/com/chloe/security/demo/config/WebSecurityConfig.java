@@ -51,6 +51,13 @@ public class WebSecurityConfig {
 
         http.cors(Customizer.withDefaults());
 
+        http.sessionManagement(
+                session -> {
+                    session.maximumSessions(1)
+                            .expiredSessionStrategy(new MySessionInformationExpiredStrategy());
+                }
+        );
+
         http.csrf(csrf -> csrf.disable());
 
         return http.build();
