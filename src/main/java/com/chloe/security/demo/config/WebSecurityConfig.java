@@ -33,8 +33,9 @@ public class WebSecurityConfig {
 
         http.authorizeHttpRequests(
                 authorize -> authorize
-                        .requestMatchers("/user/list").hasAnyAuthority("USER_LIST")
-                        .requestMatchers("/user/add").hasAnyAuthority("USER_ADD")
+                        .requestMatchers("/user/**").hasRole("ADMIN")
+//                        .requestMatchers("/user/list").hasAnyAuthority("USER_LIST")
+//                        .requestMatchers("/user/add").hasAnyAuthority("USER_ADD")
                         .anyRequest()
                         .authenticated()
         );

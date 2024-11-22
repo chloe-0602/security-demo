@@ -76,7 +76,15 @@ public class DBUserDetailsManager implements UserDetailsManager, UserDetailsPass
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true,
-				true, true, authorities);
+        /*return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true,
+				true, true, authorities);*/
+
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getUsername())
+                .password(user.getPassword())
+                .roles("ADMIN")
+                .disabled(!user.getEnabled())
+                .accountExpired(false)
+                .build();
     }
 }
