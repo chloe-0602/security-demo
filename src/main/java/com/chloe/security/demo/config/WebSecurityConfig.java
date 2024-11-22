@@ -1,10 +1,20 @@
 package com.chloe.security.demo.config;
 
+import com.alibaba.fastjson2.JSON;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ClassName: WebSecurityConfig
@@ -47,8 +57,18 @@ public class WebSecurityConfig {
                         logout.logoutSuccessHandler(new MyLogoutSuccessHandler())
         );
 
-        http.exceptionHandling(exception ->{
+        http.exceptionHandling(exception -> {
             exception.authenticationEntryPoint(new MyAuthenticationEntryPoint());
+            exception.accessDeniedHandler((request, response, accessDeniedException) -> {
+                Map map = new HashMap<>();
+                map.put("code", 400);
+                map.put("message", "权限不足");
+
+                String result = JSON.toJSONString(map);
+
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().write(result);
+            });
         });
 
         http.cors(Customizer.withDefaults());
