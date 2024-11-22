@@ -67,7 +67,7 @@ public class DBUserDetailsManager implements UserDetailsManager, UserDetailsPass
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Collection< GrantedAuthority> authorities = new ArrayList<>();
 
-        authorities.add(()->"USER_LIST");
+//        authorities.add(()->"USER_LIST");
         authorities.add(()->"USER_ADD");
 
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
